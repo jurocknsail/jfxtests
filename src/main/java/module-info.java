@@ -1,7 +1,7 @@
 module com.jurocknsail.jfxtest {
     requires javafx.controls;
     requires javafx.fxml;
-    requires transitive java.base;
+    requires java.base;
     requires transitive javafx.graphics;
 
     opens com.jurocknsail.jfxtest to javafx.fxml;
