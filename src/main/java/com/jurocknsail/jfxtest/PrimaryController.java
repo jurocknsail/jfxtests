@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -146,17 +147,23 @@ public class PrimaryController implements Initializable {
 
                     if (!externalUpdate) {
 
-                        Platform.runLater(() -> {
+                        // Using Task instead of Plateform.runLater() :
+                        Task<Void> notify = new Task<Void>() {
+                            @Override
+                            protected Void call() throws Exception {
+                                
+                                System.out.println(Thread.currentThread().getName() +" / "+ Thread.currentThread().getId());
+                                System.out.println("UPDATED Row : " + c.getFrom());
+                                System.out.println("UPDATED Item field : " + updatedItemField);
+                                System.out.println("UPDATED Item old value : " + updatedItemOldValue);
+                                Object object = c.getList().get(c.getFrom());
+                                System.out.println("UPDATED Item new value : " + runGetter(updatedItemField, object.getClass(), object));
+                                System.out.println("UPDATED Item : " + c.getList().get(c.getFrom()));
 
-                            System.out.println("UPDATED Row : " + c.getFrom());
-                            System.out.println("UPDATED Item field : " + updatedItemField);
-                            System.out.println("UPDATED Item old value : " + updatedItemOldValue);
-                            Object object = c.getList().get(c.getFrom());
-                            System.out.println("UPDATED Item new value : " + runGetter(updatedItemField, object.getClass(), object));
-                            System.out.println("UPDATED Item : " + c.getList().get(c.getFrom()));
-
-                        });
-
+                                return null;
+                            }
+                        };
+                        new Thread(notify).start();
 
                     }
                 }
