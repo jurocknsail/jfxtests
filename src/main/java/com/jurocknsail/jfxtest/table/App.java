@@ -1,4 +1,4 @@
-package com.jurocknsail.jfxtest;
+package com.jurocknsail.jfxtest.table;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
