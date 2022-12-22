@@ -3,7 +3,6 @@ package com.jurocknsail.jfxtest.textfieldslider;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -40,7 +39,7 @@ public class PrimaryController implements Initializable {
     HBox hbox;
 
     private boolean changeMarker = false;
-    private SimpleBooleanProperty anyTextFieldChanged = new SimpleBooleanProperty();
+    private SimpleBooleanProperty anyRealChange = new SimpleBooleanProperty();
     private SimpleIntegerProperty tf1IntProp = new SimpleIntegerProperty();
     private SimpleIntegerProperty tf2IntProp = new SimpleIntegerProperty();
     private SimpleIntegerProperty tf3IntProp = new SimpleIntegerProperty();
@@ -77,7 +76,7 @@ public class PrimaryController implements Initializable {
         textFieldsIntegerProperties.put(tf2, tf2IntProp);
         textFieldsIntegerProperties.put(tf3, tf3IntProp);
 
-        anyTextFieldChanged.addListener((a,b,c) -> {
+        anyRealChange.addListener((a,b,c) -> {
             System.out.println( " REAL CHANGE DETECTED");
         });
 
@@ -182,7 +181,7 @@ public class PrimaryController implements Initializable {
         textFieldsIntegerProperties.get(textField).addListener((a,b,c)-> {
             if(!b.equals(c)){
                 changeMarker = !changeMarker;
-                anyTextFieldChanged.set(changeMarker);
+                anyRealChange.set(changeMarker);
             }
 
         });
